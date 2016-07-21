@@ -36,27 +36,27 @@ def process_webhook():
         message = get_message(message_id)
         #pprint(message)
         
-        if message["text"].lower().find("results") > -1:
+        if message.lower().find("results") > -1:
             results = get_results()
             reply = "The current standings are\n"
             for result in results:
-               reply += "  - %s has %s votes.\n" % (result[0], result[1])
-        elif message["text"].lower().find("options") > -1:
-             options = get_options()
-             reply = "The options are... \n"
-             for option in options:
-                 reply += "  - %s \n" % (option)
-        elif message["text"].lower().find("vote") > -1:
-             reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
-             start_vote_session(message["personEmail"])
+                reply += "  - %s has %s votes.\n" % (result[0], result[1])
+        elif message.lower().find("options") > -1:
+            options = get_options()
+            reply = "The options are... \n"
+            for option in options:
+                reply += "  - %s \n" % (option)
+        elif message.lower().find("vote") > -1:
+            reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
+            start_vote_session(message["personEmail"])
         else:
-             # Reply back to message
-             reply =  "Hello, welcome to the Drummer Demo Room.\n" \
-                     "To find out current status of voting, ask 'What are the results?'\n" \
-                     "To find out the possible options, ask 'What are the options?\n" \
-                     '''To place a vote, say "I'd like to vote" to start a private voting session.'''
-             send_message_to_room(demo_room_id, reply)
-    # If not the demo room, assume its a user voting session
+            # Reply back to message
+            reply = "Hello, welcome to the Drummer Demo Room.\n" \
+                    "To find out current status of voting, ask 'What are the results?'\n" \
+                    "To find out the possible options, ask 'What are the options?\n" \
+                    '''To place a vote, say "I'd like to vote" to start a private voting session.'''
+            send_message_to_room(demo_room_id, reply)
+        # If not the demo room, assume its a user voting session
     else:
         # print("Incoming Individual Message.")
         sys.stderr.write("Incoming Individual Message\n")
