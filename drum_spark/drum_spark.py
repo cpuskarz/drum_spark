@@ -29,19 +29,19 @@ def process_webhook():
     # Check what room this came from
     # If Demo Room process for open room
     if post_data["data"]["roomId"] == demo_room_id:
-        print("Incoming Demo Room Message.")
+        #print("Incoming Demo Room Message.")
         sys.stderr.write("Incoming Demo Room Message\n")
         process_demoroom_message(post_data)
         message_id = post_data["data"]["id"]
         message = get_message(message_id)
-        pprint(message)
+        #pprint(message)
         
         if message["text"].lower().find("results") > -1:
             results = get_results()
             reply = "The current standings are\n"
             for result in results:
                reply += "  - %s has %s votes.\n" % (result[0], result[1])
-        elif message["text"].lower().find("options") > -1:
+        elif message.lower().find("options") > -1:
              options = get_options()
              reply = "The options are... \n"
              for option in options:
