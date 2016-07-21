@@ -138,12 +138,14 @@ def process_demoroom_message(post_data):
             add_email_demo_room(email, demo_room_id)
             reply += "  - %s \n" % (email)
     # If nothing matches, send instructions
-    else:
+    elif message["text"].lower().find("hello") > -1:
         # Reply back to message
-        reply = "Hello, welcome to the Chet Drummer World Demo Room.\n" \
+        reply = "Hi, Welcome to the Chet Drummer World Demo Room.\n" \
                 "To find out current status of voting, ask 'What are the results?'\n" \
                 "To find out the possible options, ask 'What are the options?\n" \
                 '''To place a vote, say "I'd like to vote" to start a private voting session.'''
+    else:
+        return ""
 
     send_message_to_room(demo_room_id, reply)
 
