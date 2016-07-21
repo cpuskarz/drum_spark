@@ -36,17 +36,17 @@ def process_webhook():
         message = get_message(message_id)
         #pprint(message)
         
-        if message.lower().find("results") > -1:
+        if message["text"].lower().find("results"):
             results = get_results()
             reply = "The current standings are\n"
             for result in results:
                 reply += "  - %s has %s votes.\n" % (result[0], result[1])
-        elif message.lower().find("options") > -1:
+        elif message["text"].lower().find("options"):
             options = get_options()
             reply = "The options are... \n"
             for option in options:
                 reply += "  - %s \n" % (option)
-        elif message.lower().find("vote") > -1:
+        elif message["text"].lower().find("vote"):
             reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
             start_vote_session(message["personEmail"])
         else:
