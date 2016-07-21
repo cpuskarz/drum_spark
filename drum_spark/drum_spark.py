@@ -81,23 +81,23 @@ def process_demoroom_message(post_data):
 
 
     # Check if message contains word "results" and if so send results
-    if message["text"].lower().find("results") > -1:
+    if message["text"].lower().find("/results") > -1:
         results = get_results()
         reply = "The current standings are\n"
         for result in results:
             reply += "  - %s has %s votes.\n" % (result[0], result[1])
     # Check if message contains word "options" and if so send options
-    if message["text"].lower().find("options") > -1:
+    if message["text"].lower().find("/options") > -1:
         options = get_options()
         reply = "The choices are... \n"
         for option in options:
             reply += "  - %s \n" % option
     # Check if message contains word "vote" and if so start a voting session
-    if message["text"].lower().find("vote") > -1:
+    if message["text"].lower().find("/vote") > -1:
         reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
         start_vote_session(message["personEmail"])
     # Check if message contains phrase "add email" and if so add user to room
-    if message["text"].lower().find("add email") > -1:
+    if message["text"].lower().find("/add email") > -1:
         # Get the email that comes
         emails = re.findall(r'[\w\.-]+@[\w\.-]+', message["text"])
         # pprint(emails)
@@ -106,7 +106,7 @@ def process_demoroom_message(post_data):
             add_email_demo_room(email, demo_room_id)
             reply += "  - %s \n" % (email)
     # If nothing matches, send instructions
-    if message["text"].lower().find("hello") > -1:
+    if message["text"].lower().find("/hello") > -1:
         # Reply back to message
         reply = "Hi, Welcome to the Chet Drummer World Demo Room.\n" \
                 "To find out current status of voting, ask 'What are the results?'\n" \
