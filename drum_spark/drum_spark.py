@@ -36,19 +36,19 @@ def process_webhook():
         message = get_message(message_id)
         #pprint(message)
         
-        if message["text"].lower().find("results"):
+        if message["text"].lower().find("results") > -1:
             results = get_results()
             reply = "The current standings are\n"
             for result in results:
                 reply += "  - %s has %s votes.\n" % (result[0], result[1])
-        elif message["text"].lower().find("options"):
+        elif message["text"].lower().find("options") > -1:
             options = get_options()
             reply = "The options are... \n"
             for option in options:
-                reply += "  - %s \n" % (option)
-        elif message["text"].lower().find("vote"):
-            reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
-            start_vote_session(message["personEmail"])
+                reply += "  - %s \n" % option
+        #elif message["text"].lower().find("vote") > -1:
+        #    reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
+        #    start_vote_session(message["personEmail"])
         else:
             # Reply back to message
             reply = "Hello, welcome to the Drummer Demo Room.\n" \
@@ -199,7 +199,7 @@ def process_incoming_message(post_data):
         msg = "I didn't understand your vote, please type the name of your chosen hero exactly as listed on the ballot.  "
         send_message_to_email(message["personEmail"], msg)
     return ""
-'''
+
 # Utilities to interact with the MyHero-App Server
 def get_results():
     u = app_server + "/results"
@@ -207,7 +207,7 @@ def get_results():
     tally = page.json()
     tally = sorted(tally.items(), key = lambda (k,v): v, reverse=True)
     return tally
-'''
+
 def get_options():
     u = app_server + "/options"
     page = requests.get(u, headers=app_headers)
