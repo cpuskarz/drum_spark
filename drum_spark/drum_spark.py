@@ -51,7 +51,7 @@ def process_webhook():
              start_vote_session(message["personEmail"])
         else:
              # Reply back to message
-             reply =  "Hello, welcome to the MyHero Demo Room.\n" \
+             reply =  "Hello, welcome to the Drummer Demo Room.\n" \
                      "To find out current status of voting, ask 'What are the results?'\n" \
                      "To find out the possible options, ask 'What are the options?\n" \
                      '''To place a vote, say "I'd like to vote" to start a private voting session.'''
