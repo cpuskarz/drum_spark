@@ -146,7 +146,7 @@ def process_demoroom_message(post_data):
                 '''To place a vote, say "I'd like to vote" to start a private voting session.'''
 
 
-    return send_message_to_room(demo_room_id, reply)
+    send_message_to_room(demo_room_id, reply)
 
 
 
@@ -532,7 +532,7 @@ if __name__ == '__main__':
 
     # If Demo Email was provided, add to room
     #demo_email = args.demoemail
-    demo_email = "cpuskarz@cisco.com"
+    demo_email = None
     if demo_email:
         sys.stderr.write("Adding " + demo_email + " to the demo room.\n")
         add_email_demo_room(demo_email, demo_room_id)
