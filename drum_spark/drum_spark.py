@@ -32,10 +32,13 @@ def process_webhook():
         #print("Incoming Demo Room Message.")
         sys.stderr.write("Incoming Demo Room Message\n")
         process_demoroom_message(post_data)
+
         #message_id = post_data["data"]["id"]
         #message = get_message(message_id)
         #pprint(message)
-        
+
+        reply = "LOOP"
+        send_message_to_room(demo_room_id, reply)
         #if message["text"].lower().find("results") > -1:
         #    results = get_results()
         #    reply = "The current standings are\n"
@@ -57,7 +60,7 @@ def process_webhook():
         #            '''To place a vote, say "I'd like to vote" to start a private voting session.'''
         #    send_message_to_room(demo_room_id, reply)
         # If not the demo room, assume its a user voting session
-        break
+
     else:
         # print("Incoming Individual Message.")
         sys.stderr.write("Incoming Individual Message\n")
