@@ -531,7 +531,7 @@ if __name__ == '__main__':
 
     # If Demo Email was provided, add to room
     #demo_email = args.demoemail
-    demo_email = None
+    demo_email = "cpuskarz@cisco.com"
     if demo_email:
         sys.stderr.write("Adding " + demo_email + " to the demo room.\n")
         add_email_demo_room(demo_email, demo_room_id)
