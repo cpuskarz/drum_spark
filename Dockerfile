@@ -16,5 +16,4 @@ ADD . /app
 WORKDIR /app
 RUN pip install --requirement ./requirements.txt
 
-CMD [ "python", "./myhero_spark/myhero_spark.py" ]
-
+CMD [ "python", "./drum_spark/drum_spark.py" ]

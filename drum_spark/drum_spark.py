@@ -1,32 +1,4 @@
 #! /usr/bin/python
-'''
-    Spark Bot for Simple Superhero Voting Application
-
-    This Bot will use a provided Spark Account (identified by the Developer Token)
-    and create a new room to use for interacting with the MyHero Demo.  Users can
-    check current standings, list the available options, and place a vote.  Placing
-    a vote will start a one on one communication with the Bot rather than have votes
-    placed in the big room.
-
-    This is the an example Service for a basic microservice demo application.
-    The application was designed to provide a simple demo for Cisco Mantl
-
-    There are several pieces of information needed to run this application.  It is
-    suggested to set them as OS Environment Variables.  Here is an example on how to
-    set them:
-
-    # Address and key for app server
-    export myhero_app_server=http://myhero-app.mantl.domain.com
-    export myhero_app_key=DemoAppKey
-
-    # Details on the Cisco Spark Account to Use
-    export myhero_spark_bot_email=myhero.demo@domain.com
-    export spark_token=adfiafdadfadfaij12321kaf
-
-    # Address and key for the Spark Bot itself
-    export myhero_spark_bot_url=http://myhero-spark.mantl.domain.com
-    export myhero_spark_bot_secret=DemoBotKey
-'''
 
 __author__ = 'cpuskarz'
 
@@ -95,9 +67,9 @@ def process_webhook():
 @app.route("/demoroom/members", methods=["PUT", "GET"])
 def process_demoroom_members():
     # Verify that the request is propery authorized
-    authz = valid_request_check(request)
-    if not authz[0]:
-        return authz[1]
+    #authz = valid_request_check(request)
+    #if not authz[0]:
+    #    return authz[1]
 
     status = 200
     if request.method == "PUT":
@@ -250,17 +222,16 @@ def place_vote(vote):
 
 # MyHero Demo Room Setup
 def setup_demo_room():
-    print "IN SETYP DEMO ROOM 1"
-    #rooms = current_rooms()
+    rooms = current_rooms()
     # pprint(rooms)
 
     # Look for a room called "MyHero Demo"
     demo_room_id = ""
-    #for room in rooms:
-    #    if room["title"] == "Drummer World":
-    #        # print("Found Room")
-    #        demo_room_id = room["id"]
-    #        break
+    for room in rooms:
+        if room["title"] == "Drummer World":
+            # print("Found Room")
+            demo_room_id = room["id"]
+            break
 
     # If demo room not found, create it
     if demo_room_id == "":
@@ -377,13 +348,9 @@ def setup_webhook(room_id, target, name):
 
 #### Room Utilities
 def current_rooms():
-    print "IN CuRRENT ROOMS 1"
     spark_u = spark_host + "v1/rooms"
-    print "IN CuRRENT ROOMS 2"
     page = requests.get(spark_u, headers = spark_headers)
-    print "IN CuRRENT ROOMS 3"
     rooms = page.json()
-    print "IN DEF CURRENT ROOMS"
     return rooms["items"]
 
 def leave_room(room_id):
@@ -459,8 +426,10 @@ if __name__ == '__main__':
     #  2. OS Environment Variables
     #  3. Raw User Input
     #bot_url = args.boturl
+    bot_url = None
     # adding static link
-    bot_url = "http://chetp-spark.app.mantldevnetsandbox.com"
+    #bot_url = "http://chetp-spark.app.mantldevnetsandbox.com"
+    #bot_url = "http://127.0.0.1:5000"
     if (bot_url == None):
         bot_url = os.getenv("drummer_spark_bot_url")
         if (bot_url == None):
@@ -469,8 +438,9 @@ if __name__ == '__main__':
     sys.stderr.write("Bot URL: " + bot_url + "\n")
 
     #bot_email = args.botemail
+    bot_email = None
     # adding static email
-    bot_email = "cpuskarz@cisco.com"
+    #bot_email = "cpuskarz@cisco.com"
     if (bot_email == None):
         bot_email = os.getenv("drummer_spark_bot_email")
         if (bot_email == None):
@@ -479,8 +449,10 @@ if __name__ == '__main__':
     sys.stderr.write("Bot Email: " + bot_email + "\n")
 
     #app_server = args.app
+    app_server = None
     # adding static app server
-    app_server = "http://chetp-app.app.mantldevnetsandbox.com"
+    #app_server = "http://chetp-app.app.mantldevnetsandbox.com"
+    #app_server = "http://127.0.0.1:5002"
     # print "Arg App: " + str(app_server)
     if (app_server == None):
         app_server = os.getenv("drummer_app_server")
@@ -506,9 +478,10 @@ if __name__ == '__main__':
 #    sys.stderr.write("App Server Key: " + app_key + "\n")
 
     #spark_token = args.token
+    spark_token = None
     # adding static spark token
-    spark_token = "OGRlYTUwMDctMmY0MC00NzlmLWJlZWMtMDg0ZjkzNDA5YjI2NzE2MWVhOGUtYTE2"
-    print "Spark Token: " + str(spark_token)
+    #spark_token = os.getenv("TOKEN")
+    #print "Spark Token: " + str(spark_token)
     if (spark_token == None):
         spark_token = os.getenv("spark_token")
         # print "Env Spark Token: " + str(spark_token)
@@ -518,11 +491,12 @@ if __name__ == '__main__':
             spark_token = get_spark_token
     # print "Spark Token: " + spark_token
     # sys.stderr.write("Spark Token: " + spark_token + "\n")
-    sys.stderr.write("Spark Token: REDACTED\n")
+    #sys.stderr.write("Spark Token: REDACTED\n")
 
     #secret_key = args.secret
+    secret_key = None
     # adding static bot secret
-    secret_key = "SecureBot"
+    #secret_key = "SecureBot"
     if (secret_key == None):
         secret_key = os.getenv("drummer_spark_bot_secret")
         if (secret_key == None):
@@ -532,7 +506,6 @@ if __name__ == '__main__':
 
 
     # Set Authorization Details for external requests
-    # changing following Bearer to Basic
     spark_headers["Authorization"] = "Bearer " + spark_token
     #app_headers["key"] = app_key
 
@@ -553,4 +526,4 @@ if __name__ == '__main__':
         sys.stderr.write("Adding " + demo_email + " to the demo room.\n")
         add_email_demo_room(demo_email, demo_room_id)
 
-    app.run(debug=True, host='0.0.0.0', port=int("5000"))
+    app.run(debug=True, host='0.0.0.0')
