@@ -36,12 +36,12 @@ def process_webhook():
         message = get_message(message_id)
         #pprint(message)
         
-        if message["text"].lower().find("results") > -1:
+        if message["text"].lower().find("results") != 0:
             results = get_results()
             reply = "The current standings are\n"
             for result in results:
                 reply += "  - %s has %s votes.\n" % (result[0], result[1])
-        elif message["text"].lower().find("options") > -1:
+        elif message["text"].lower().find("options") != 0:
             options = get_options()
             reply = "The options are... \n"
             for option in options:
