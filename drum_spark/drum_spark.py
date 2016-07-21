@@ -115,7 +115,7 @@ def process_demoroom_message(post_data):
         options = get_options()
         reply = "The options are... \n"
         for option in options:
-            reply += "  - %s \n" % (option)
+            reply = "  - %s \n" % option
     # Check if message contains word "vote" and if so start a voting session
     elif message["text"].lower().find("vote") > -1:
         reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
