@@ -113,11 +113,11 @@ def process_demoroom_message(post_data):
                 "To find out current status of voting, ask 'What are the results?'\n" \
                 "To find out the possible options, ask 'What are the options?\n" \
                 '''To place a vote, say "I'd like to vote" to start a private voting session.'''
-    else:
-        reply = "CISCO"
 
 
-    send_message_to_room(demo_room_id, reply)
+    return send_message_to_room(demo_room_id, reply)
+
+
 
 
 
