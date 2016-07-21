@@ -39,6 +39,7 @@ def process_webhook():
 
         reply = "LOOP"
         send_message_to_room(demo_room_id, reply)
+        post_data["data"]["roomId"] = -1
         #if message["text"].lower().find("results") > -1:
         #    results = get_results()
         #    reply = "The current standings are\n"
