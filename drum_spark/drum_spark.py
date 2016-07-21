@@ -61,7 +61,8 @@ def process_webhook():
         #            '''To place a vote, say "I'd like to vote" to start a private voting session.'''
         #    send_message_to_room(demo_room_id, reply)
         # If not the demo room, assume its a user voting session
-
+        return ""
+    
     else:
         # print("Incoming Individual Message.")
         sys.stderr.write("Incoming Individual Message\n")
@@ -144,7 +145,7 @@ def process_demoroom_message(post_data):
 
     send_message_to_room(demo_room_id, reply)
 
-    return ""
+
 
 
 # For when a user wants to vote
