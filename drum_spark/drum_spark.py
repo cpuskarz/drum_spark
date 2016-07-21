@@ -33,38 +33,6 @@ def process_webhook():
         sys.stderr.write("Incoming Demo Room Message\n")
         process_demoroom_message(post_data)
 
-        #message_id = post_data["data"]["id"]
-        #message = get_message(message_id)
-        #pprint(message)
-
-        #reply = "LOOP"
-        #send_message_to_room(demo_room_id, reply)
-
-    #if message["text"].lower().find("results") > -1:
-    #    results = get_results()
-    #    reply = "The current standings are\n"
-    #    for result in results:
-    #        reply += "  - %s has %s votes.\n" % (result[0], result[1])
-
-    #elif message["text"].lower().find("options") > -1:
-    #    options = get_options()
-    #    reply = "The options are... \n"
-    #    for option in options:
-    #        reply += "  - %s \n" % option
-
-                #elif message["text"].lower().find("vote") > -1:
-                #    reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
-                #    start_vote_session(message["personEmail"])
-    #else:
-        #Reply back to message
-    #    reply = "Hello, welcome to the Drummer Demo Room.\n" \
-    #            "To find out current status of voting, ask 'What are the results?'\n" \
-    #             "To find out the possible options, ask 'What are the options?\n" \
-    #            '''To place a vote, say "I'd like to vote" to start a private voting session.'''
-    #    send_message_to_room(demo_room_id, reply)
-        #If not the demo room, assume its a user voting session
-
-
     else:
         # print("Incoming Individual Message.")
         sys.stderr.write("Incoming Individual Message\n")
@@ -119,17 +87,17 @@ def process_demoroom_message(post_data):
         for result in results:
             reply += "  - %s has %s votes.\n" % (result[0], result[1])
     # Check if message contains word "options" and if so send options
-    elif message["text"].lower().find("options") > -1:
+    if message["text"].lower().find("options") > -1:
         options = get_options()
         reply = "The choices are... \n"
         for option in options:
             reply += "  - %s \n" % option
     # Check if message contains word "vote" and if so start a voting session
-    elif message["text"].lower().find("vote") > -1:
+    if message["text"].lower().find("vote") > -1:
         reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
         start_vote_session(message["personEmail"])
     # Check if message contains phrase "add email" and if so add user to room
-    elif message["text"].lower().find("add email") > -1:
+    if message["text"].lower().find("add email") > -1:
         # Get the email that comes
         emails = re.findall(r'[\w\.-]+@[\w\.-]+', message["text"])
         # pprint(emails)
@@ -138,7 +106,7 @@ def process_demoroom_message(post_data):
             add_email_demo_room(email, demo_room_id)
             reply += "  - %s \n" % (email)
     # If nothing matches, send instructions
-    elif message["text"].lower().find("hello") > -1:
+    if message["text"].lower().find("hello") > -1:
         # Reply back to message
         reply = "Hi, Welcome to the Chet Drummer World Demo Room.\n" \
                 "To find out current status of voting, ask 'What are the results?'\n" \
