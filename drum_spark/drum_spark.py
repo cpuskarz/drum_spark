@@ -100,8 +100,8 @@ def process_demoroom_message(post_data):
     # pprint(message)
 
     # First make sure not processing a message from the bot
-    if message["personEmail"] == bot_email:
-        return ""
+    #if message["personEmail"] == bot_email:
+    #    return ""
 
 
     # Check if message contains word "results" and if so send results
