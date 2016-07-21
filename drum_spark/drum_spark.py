@@ -39,7 +39,7 @@ def process_webhook():
 
         reply = "LOOP"
         send_message_to_room(demo_room_id, reply)
-        post_data["data"]["roomId"] = -1
+
         #if message["text"].lower().find("results") > -1:
         #    results = get_results()
         #    reply = "The current standings are\n"
@@ -143,6 +143,8 @@ def process_demoroom_message(post_data):
                 '''To place a vote, say "I'd like to vote" to start a private voting session.'''
 
     send_message_to_room(demo_room_id, reply)
+
+    return ""
 
 
 # For when a user wants to vote
@@ -526,7 +528,7 @@ if __name__ == '__main__':
 
     # If Demo Email was provided, add to room
     #demo_email = args.demoemail
-    demo_email = "cpuskarz@cisco.com"
+    demo_email = None
     if demo_email:
         sys.stderr.write("Adding " + demo_email + " to the demo room.\n")
         add_email_demo_room(demo_email, demo_room_id)
