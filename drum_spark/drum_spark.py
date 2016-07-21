@@ -41,7 +41,7 @@ def process_webhook():
             reply = "The current standings are\n"
             for result in results:
                reply += "  - %s has %s votes.\n" % (result[0], result[1])
-        elif message.lower().find("options") > -1:
+        elif message["text"].lower().find("options") > -1:
              options = get_options()
              reply = "The options are... \n"
              for option in options:
