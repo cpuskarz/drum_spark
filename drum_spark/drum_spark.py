@@ -110,9 +110,7 @@ def process_demoroom_message(post_data):
     elif message["text"].lower().find("/hello") > -1:
         # Reply back to message
         reply = "Hi, Welcome to the Chet Drummer World Demo Room.\n" \
-                "To find out current status of voting, ask 'What are the results?'\n" \
-                "To find out the possible options, ask 'What are the options?\n" \
-                '''To place a vote, say "I'd like to vote" to start a private voting session.'''
+                "To find out the possible options, type: /options\n"
 
 
     return send_message_to_room(demo_room_id, reply)
@@ -422,7 +420,6 @@ if __name__ == '__main__':
     #bot_email = args.botemail
     bot_email = None
     # adding static email
-    #bot_email = "cpuskarz@cisco.com"
     if (bot_email == None):
         bot_email = os.getenv("drummer_spark_bot_email")
         if (bot_email == None):
