@@ -88,7 +88,7 @@ def process_demoroom_message(post_data):
         for result in results:
             reply += "  - %s has %s votes.\n" % (result[0], result[1])
     # Check if message contains word "options" and if so send options
-    elif message["text"].lower().find("/options") > -1:
+    elif message["text"].lower().find("options") > -1:
         options = get_options()
         reply = "The choices are... \n"
         for option in options:
@@ -107,13 +107,13 @@ def process_demoroom_message(post_data):
             add_email_demo_room(email, demo_room_id)
             reply += "  - %s \n" % (email)
     # If nothing matches, send instructions
-    elif message["text"].lower().find("/hello") > -1:
+    elif message["text"].lower().find("hello") > -1:
         # Reply back to message
         reply = "Hi, Welcome to the Chet Drummer World Demo Room.\n" \
-                "To find out the possible options, type: /options\n"
+                "To find out the possible options, type: 'options'\n"
 
 
-    return send_message_to_room(demo_room_id, reply)
+    send_message_to_room(demo_room_id, reply)
 
 
 
