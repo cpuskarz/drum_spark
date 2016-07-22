@@ -22,6 +22,7 @@ def process_webhook():
     # authz = valid_request_check(request)
     # if not authz[0]:
     #     return authz[1]
+    post_data = None
 
     post_data = request.get_json(force=True)
     # pprint(post_data)
@@ -80,7 +81,7 @@ def process_demoroom_message(post_data):
     if message["personEmail"] == bot_email:
         return ""
 
-
+'''
     # Check if message contains word "results" and if so send results
     if message["text"].lower().find("/results") > -1:
         results = get_results()
@@ -97,6 +98,8 @@ def process_demoroom_message(post_data):
     elif message["text"].lower().find("/vote") > -1:
         reply = "Let's vote!  Look for a new message from me so you can place a secure vote!"
         start_vote_session(message["personEmail"])
+'''
+
     # Check if message contains phrase "add email" and if so add user to room
     elif message["text"].lower().find("/add email") > -1:
         # Get the email that comes
@@ -109,8 +112,8 @@ def process_demoroom_message(post_data):
     # If nothing matches, send instructions
     elif message["text"].lower().find("hello") > -1:
         # Reply back to message
-        reply = "Hi, Welcome to the Chet Drummer World Demo Room.\n" \
-                "To find out the possible options, type: 'options'\n"
+        reply = "Hi, Welcome to Chet Drummer World.\n" \
+                "To find out the possible options, type: 'options'"
 
 
     send_message_to_room(demo_room_id, reply)
