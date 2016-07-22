@@ -22,7 +22,6 @@ def process_webhook():
     # authz = valid_request_check(request)
     # if not authz[0]:
     #     return authz[1]
-    post_data = None
 
     post_data = request.get_json(force=True)
     # pprint(post_data)
