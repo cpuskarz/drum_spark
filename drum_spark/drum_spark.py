@@ -23,6 +23,8 @@ def process_webhook():
     # if not authz[0]:
     #     return authz[1]
 
+    post_data = None
+
     post_data = request.get_json(force=True)
     # pprint(post_data)
 
@@ -109,11 +111,12 @@ def process_demoroom_message(post_data):
     elif message["text"].lower().find("hello") > -1:
         # Reply back to message
         reply = "Hi, Welcome to Chet Drummer World.\n" \
-                "To find out the possible options, type: 'options'\n"
+                "To find out the possible options, type: 'options'"
 
 
     send_message_to_room(demo_room_id, reply)
 
+    return
 
 
 
